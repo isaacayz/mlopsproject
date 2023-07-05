@@ -7,6 +7,8 @@ from src.logger import logging
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
+
+DATA_SOURCE = "notebook/data/stud.csv"
 @dataclass
 class DataIngestionConfig:
     train_data_path: str= os.path.join('artifacts', 'train.csv')
@@ -22,7 +24,7 @@ class DataIngestion:
         logging.info('Entered the data ingestion component')
 
         try:
-            df = pd.read_csv('notebook/data/stud.csv')
+            df = pd.read_csv(DATA_SOURCE)
             logging.info('Reading the dataset as dataframe')
             #Creates the folder
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
