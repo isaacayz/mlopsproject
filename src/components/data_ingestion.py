@@ -9,6 +9,7 @@ from dataclasses import dataclass
 
 
 DATA_SOURCE = "notebook/data/stud.csv"
+KAGGLE = 'https://data.apps.fao.org/catalog/dataset/household-survey-data-portrait-admin-1-gadm-1998-2012'
 @dataclass
 class DataIngestionConfig:
     train_data_path: str= os.path.join('artifacts', 'train.csv')
