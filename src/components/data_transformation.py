@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from src.exceptions import CustomException
 from src.logger import logging
 import sys, os
+from src.utils import save_object
 
 
 @dataclass
@@ -70,5 +71,24 @@ class DataTransformation:
 
             logging.info('Applying preprocessing object on the the two datasets')
 
-        except:
-            pass
+            input_feature_train_arr = preprocessing_obj.fit_transform(input_feature_tr_df)
+            input_feature_test_arr = preprocessing_obj.transform(input_feature_te_df)
+
+            train_arr = np.c_[
+                input_feature_train_arr, np.array(target_feature_tr_df)
+            ]
+            test_arr = np.c_[input_feature_te_df, np.array(target_feature_te_df)]
+
+            logging.info("Saving preprocessing object")
+            save_object(
+                file_path = self.data_transformation_config.preprocessor_obj_file_path,
+                obj = preprocessing_obj
+            )
+            return(
+                train_arr,
+                test_arr,
+                self.data_transformation_config.preprocessor_obj_file_path
+            )
+
+        except Exception as e:
+            raise CustomException(e, sys)
