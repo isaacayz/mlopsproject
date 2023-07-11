@@ -55,5 +55,20 @@ class DataTransformation:
         try:
             train_df = pd.read_csv(train_path)
             test_df = pd.read_csv(test_path)
+            logging.info('Done loading train and test data for data transformation')
+
+            preprocessing_obj = self.get_data_transformer_obj()
+
+            target_column_name = 'math_score'
+            num_features = ['reading_score', 'writing_score']
+
+            input_feature_tr_df = train_df.drop(columns=[target_column_name], axis=1)
+            target_feature_tr_df = train_df[target_column_name]
+
+            input_feature_te_df = test_df.drop(columns=[target_column_name], axis=1)
+            target_feature_te_df = test_df[target_column_name]
+
+            logging.info('Applying preprocessing object on the the two datasets')
+
         except:
             pass
