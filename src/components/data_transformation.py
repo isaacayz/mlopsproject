@@ -17,4 +17,43 @@ class DataTransformationConfig:
 
 class DataTransformation:
     def __init__(self) -> None:
-        self.data_transformation = DataTransformationConfig()
+        self.data_transformation_config = DataTransformationConfig()
+
+    def get_data_transformer_obj(self):
+        try:
+            num_features = ['reading_score', 'writing_score']
+            cat_features = ['gender', 'race_ethnicity', 'parental_level_of_education', 'lunch', 'test_preparation_course']
+
+            num_pipeline = Pipeline(
+                steps=[
+                    ('imputer', SimpleImputer(strategy='median')),
+                    ('scaler', StandardScaler(with_mean=False))
+                ]
+            )
+            cat_pipeline = Pipeline(
+                steps=[
+                    ('imputer', SimpleImputer(strategy='most_frequent')),
+                    ('one_hot_encoder', OneHotEncoder()),
+                    ('scaler', StandardScaler(with_mean=False))
+                ]
+            )
+            logging.info('Categorical columns standard scaling completed')
+            logging.info('Numerical columns encoding completed')
+
+            preprocessor = ColumnTransformer(
+                [
+                    ('num_pipeline', num_pipeline, num_features),
+                    ('cat_pipeline', cat_pipeline, cat_features)
+                ]
+            )
+
+            return preprocessor
+        except Exception as e:
+            raise CustomException(e, sys)
+        
+    def initiate_data_transformation(self, train_path, test_path):
+        try:
+            train_df = pd.read_csv(train_path)
+            test_df = pd.read_csv(test_path)
+        except:
+            pass
