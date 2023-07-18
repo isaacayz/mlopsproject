@@ -1,12 +1,12 @@
 import os
 import sys
 import pandas as pd
-from src.exceptions import CustomException
-from src.logger import logging
-
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 from data_transformation import DataTransformation, DataTransformationConfig
+from src.exceptions import CustomException
+from src.logger import logging
+
 
 
 DATA_SOURCE = "notebook/data/stud.csv"
@@ -46,6 +46,7 @@ class DataIngestion:
             )
         except Exception as e:
             raise CustomException(e, sys)
+
 
 
 if __name__ == "__main__":

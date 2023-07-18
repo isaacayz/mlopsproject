@@ -1,4 +1,3 @@
-from data_ingestion import DataIngestion
 import pandas as pd
 import numpy as np
 from sklearn.compose import ColumnTransformer
@@ -8,13 +7,15 @@ from sklearn.pipeline import Pipeline
 from dataclasses import dataclass
 from src.exceptions import CustomException
 from src.logger import logging
-import sys, os
+import sys
+import os
 from src.utils import save_object
 
 
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file_path = os.path.join('artifacts', 'preprocessor.pkl')
+
 
 class DataTransformation:
     def __init__(self) -> None:
@@ -77,7 +78,7 @@ class DataTransformation:
             train_arr = np.c_[
                 input_feature_train_arr, np.array(target_feature_tr_df)
             ]
-            test_arr = np.c_[input_feature_te_df, np.array(target_feature_te_df)]
+            test_arr = np.c_[input_feature_test_arr, np.array(target_feature_te_df)]
 
             logging.info("Saving preprocessing object")
             save_object(
