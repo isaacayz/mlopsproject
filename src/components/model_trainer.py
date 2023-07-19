@@ -25,7 +25,23 @@ class ModelTrainer:
         logging.info('Splits training and testing data input')
         try:
             X_train, y_train, X_test, y_test = train_arr(
-
+                train_arr[:,:-1],
+                train_arr[:,-1],
+                train_arr[:,:-1],
+                y_test[:,-1]
             )
+
+            # declare models as a dictionary
+            models = {
+                'Random Forest': RandomForestRegressor(),
+                'Decision Tree': DecisionTreeRegressor(),
+                'Gradient Boosting': GradientBoostingRegressor(),
+                'Linear Regression': LinearRegression(),
+                'K-Neighbors Classifier': KNeighborsRegressor(),
+                'XGBClassifier': XGBRegressor(),
+                'CatBoosting Classifier': CatBoostRegressor(verbose=False),
+                'AdaBoosting Classifier': AdaBoostClassifier()
+            }
+            
         except:
             pass
