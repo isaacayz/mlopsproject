@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from data_transformation import DataTransformation, DataTransformationConfig
 from src.exceptions import CustomException
 from src.logger import logging
-
+from model_trainer import ModelTrainer
 
 
 DATA_SOURCE = "notebook/data/stud.csv"
@@ -54,5 +54,8 @@ if __name__ == "__main__":
     train_data, test_data = obj.initiate_data_ingestion()
 
     dt_transformation = DataTransformation()
-    dt_transformation.initiate_data_transformation(train_data, test_data)
+    train_arr, test_arr, _ = dt_transformation.initiate_data_transformation(train_data, test_data)
+
+    model_trainer = ModelTrainer()
+    print(model_trainer.initiate_model_trainer(train_arr= train_arr,test_arr= test_arr))
 

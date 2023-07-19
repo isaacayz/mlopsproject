@@ -130,6 +130,7 @@ env.bak/
 venv.bak/
 mlops/
 .mlops
+logs/
 
 # Spyder project settings
 .spyderproject
