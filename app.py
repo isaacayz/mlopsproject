@@ -4,6 +4,7 @@ import numpy as np
 
 from sklearn.preprocessing import StandardScaler
 from src.pipeline.predict_pipeline import PredictPipeline, CustomData
+from src.logger import logging
 
 app = Flask(__name__)
 
@@ -28,7 +29,7 @@ def predict_datapoint():
             reading_score=float(request.form.get('writing_score')),
             writing_score=float(request.form.get('reading_score'))
         )
-
+        logging.info('Done taking inputs from HTML form')
         pred_df = data.get_data_as_data_frame()
         print(pred_df)
 
@@ -37,4 +38,4 @@ def predict_datapoint():
         return render_template('home.html', results= results[0])
     
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',debug=True)
+    app.run(host='0.0.0.0')
